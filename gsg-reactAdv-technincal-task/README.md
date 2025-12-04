@@ -1,92 +1,172 @@
-# Rick & Morty Characters App
+🚀 GSG Technical Task — Rick & Morty Explorer
 
-A React + TypeScript application built as part of the **Gaza Sky Geeks – Advanced React Bootcamp** technical task.
+A clean, scalable React + TypeScript application built for the Gaza Sky Geeks Advanced React Bootcamp Technical Task.
 
-The app uses the **Rick and Morty API** to display characters, support searching, and show detailed character details including the episodes they appear in.
+This project showcases modern frontend architecture patterns, efficient API handling with TanStack Query, and a modular feature-driven structure designed for maintainability and real-world scalability.
 
----
+🎯 Features
+🔍 Characters Page
 
-## 🚀 Features
+Displays a paginated list of Rick & Morty characters
 
-- **Characters List**
-  - Fetches characters from the Rick & Morty API
-  - Responsive grid of character cards
-- **Search**
-  - Debounced search by character name
-  - Clean UX without extra API spam
-- **Character Details**
-  - Character image, status, species, gender, origin, location
-  - List of episodes (fetched in bulk using their IDs)
-- **Error & Loading States**
-  - Global loading spinner and error messages
-  - 404 / Not Found page
+Debounced search input (prevents API spam)
 
----
+Responsive card layout
 
-## 🛠 Tech Stack
+Each character navigates to its dedicated details page
 
-- React 18 + TypeScript
-- Vite
-- React Router
-- TanStack Query (React Query)
-- Axios
-- Tailwind CSS
-- Lucide React Icons
+🧪 Character Details
 
----
+Character image + full information
 
-## 📁 Project Structure
+Status badge with dynamic styling
 
-```txt
+Episode extraction via URL → ID parsing
+
+Bulk episode fetching using /episode/:ids
+
+Fully handled loading, error, and empty states
+
+⚛️ Modern Architecture & Patterns Used
+
+This project demonstrates:
+
+Feature-based modular architecture
+
+Custom Hooks per feature (useCharacters, useSearch, useCharDetails, useEpisodes)
+
+Component-level utils (each component folder encapsulates utilities + hooks)
+
+Centralized API layer with Axios
+
+React Query (TanStack Query) for:
+
+Caching
+
+Background re-fetching
+
+Loading & error states
+
+HOC (withTitle) pattern to inject metadata into routes
+
+Strong typing using a dedicated @types directory
+
+Separation of concerns enforced throughout the codebase
+
+Reusable UI components (LoadingSpinner, ErrorMessage, StatusBadge, etc.)
+
+🧱 Project Structure
+
+Your structure is clean and scalable. Here's the documented version for the README:
+
 src/
-  @types/         # Shared TypeScript types (Character, Episode, API responses, etc.)
-  api/            # Axios API clients and HTTP helpers
-  assets/         # Static assets (images, logos, etc.)
-  components/     # UI components (each component may have its own hooks/utils/types/..etc)
-    character-list/
-    character-details/
-    ...
-  hooks/          # Reusable generic hooks (e.g. useDebouncedValue)
-  pages/          # Route-level pages (CharacterListPage, CharacterDetailsPage, NotFoundPage)
-  providers/      # App-level providers (e.g. React Query client, Router HOCs, etc.)
-  routes/         # Route configuration and route HOCs (withTitle, etc.)
-  service/        # Domain/service layer (business logic between api and UI)
-  App.tsx
-  main.tsx
-Each major UI piece (like character list, character details) lives in its own folder under components/, and can contain its own:
+│
+├── @types/               # Global TypeScript interfaces (Character, Episode, API types)
+├── api/                  # Axios API handler + service functions
+│   ├── characters.ts
+│   ├── episodes.ts
+│   └── client.ts
+│
+├── components/           # UI components (each with its own logic & utils)
+│   ├── character-list/
+│   │     ├── components/
+│   │     ├── hook/
+│   │     └── utils/
+│   │     ├── index.tsx
+│   ├── character-details/
+|   |     ├── components/
+│   │     ├── hook/
+│   │     └── utils/
+│   │     ├── index.tsx
+│   ├── errorMessage.tsx
+│   ├── loadingSpinner.tsx
+│   └── header/
+│
+├── hooks/                # Shared, generic hooks (e.g. useDebouncedValue)
+│
+├── pages/                # Route-level pages
+│   ├── CharacterListPage.tsx
+│   ├── CharacterDetailsPage.tsx
+│   └── NotFoundPage.tsx
+│
+├── providers/            # React Query provider, theme provider, HOCs
+│
+├── routes/               # Routing setup + withTitle HOC
+|
+├── App.tsx               # App entry with route mapping
+└── main.tsx              # Root bootstrap
 
-hook/ – component-specific hooks
 
-utils/ – small helpers related to that component
+This organization follows feature-driven modular design, often used in scalable production React apps.
 
-index.tsx / main JSX
+🧠 Core Concepts Implemented
+✔ TanStack Query
 
-This keeps logic co-located and makes the app easier to scale.
+Used for all server-side state:
 
-▶️ Getting Started
-bash
-Copy code
+useQuery for fetching character list
+
+Dependent queries: character → episodes
+
+Proper query keys: ["characters"], ["character", id], ["episodes", ids]
+
+✔ Debounced Search
+
+Custom hook: useDebouncedValue
+Prevents rapid firing of API requests.
+
+✔ URL Param Handling
+
+Using useParams & useNavigate for navigation.
+
+✔ Bulk Episode Fetching
+
+Converts episode URLs → IDs:
+
+distructIds([".../1", ".../2"]); // → ["1", "2"]
+
+
+Then fetches them via:
+
+GET /episode/1,2,3
+
+✔ Advanced UI/UX Components
+
+Status badge color system
+
+Strong hover effects
+
+Clean detail view
+
+Robust error handling
+
+🛠️ Installation & Setup
 # Clone the repo
 git clone https://github.com/YOUR_USERNAME/gsg-reactAdv-technical-task.git
 
 cd gsg-reactAdv-technical-task
 
-# Install dependencies
+# Install deps
 npm install
 
-# Run the dev server
+# Run dev server
 npm run dev
-Then open the URL printed in the terminal (usually http://localhost:5173/).
 
-🔗 API
-Data is fetched from the public Rick & Morty API:
+🔗 API Used
 
-https://rickandmortyapi.com/api/character
+All data is fetched from:
 
-https://rickandmortyapi.com/api/character/:id
+👉 https://rickandmortyapi.com/documentation/
 
-https://rickandmortyapi.com/api/episode/:ids
+Endpoints used:
 
-👨‍💻 Author
-Built by Moamen Al-Yazouri
-Submitted for the GSG Advanced React Bootcamp – Technical Task.
+/character
+
+/character/:id
+
+/episode/:ids
+
+🧑‍💻 Author
+
+Moamen Al-Yazouri
+Submitted for the GSG Advanced React Bootcamp Technical Task.
