@@ -2,30 +2,30 @@
 
 A clean, scalable React + TypeScript application built for the Gaza Sky Geeks Advanced React Bootcamp Technical Task.
 
-This project showcases modern frontend architecture patterns, efficient API handling with TanStack Query, and a modular feature-driven structure designed for maintainability and real-world scalability.
+This project follows modern frontend architecture patterns, efficient API handling with TanStack Query, and a feature-based structure engineered for real-world scalability.
 
 🎯 Features
 🔍 Characters Page
 
-Displays a paginated list of Rick & Morty characters
+Paginated list of Rick & Morty characters
 
-Debounced search input (prevents API spam)
+Debounced search (prevents API spam)
 
-Responsive card layout
+Responsive card grid
 
-Each character navigates to its dedicated details page
+Click any character to view full details
 
 🧪 Character Details
 
 Character image + full information
 
-Status badge with dynamic styling
+Dynamic status badge (Alive / Dead / Unknown)
 
-Episode extraction via URL → ID parsing
+Extracts episode IDs from URLs
 
-Bulk episode fetching using /episode/:ids
+Bulk episode fetching via /episode/:ids
 
-Fully handled loading, error, and empty states
+Clean loading & error handling
 
 ⚛️ Modern Architecture & Patterns Used
 
@@ -33,132 +33,141 @@ This project demonstrates:
 
 Feature-based modular architecture
 
-Custom Hooks per feature (useCharacters, useSearch, useCharDetails, useEpisodes)
+Custom hooks per feature
+(useCharacters, useSearch, useCharDetails, useEpisodes)
 
-Component-level utils (each component folder encapsulates utilities + hooks)
+Co-located utils/hooks per component
 
-Centralized API layer with Axios
+Centralized API layer using Axios
 
-React Query (TanStack Query) for:
+TanStack Query for:
 
 Caching
 
-Background re-fetching
+Background fetching
+
+Server state management
 
 Loading & error states
 
-HOC (withTitle) pattern to inject metadata into routes
+HOC pattern (withTitle) for injecting metadata into routes
 
-Strong typing using a dedicated @types directory
+Strong TypeScript usage (@types directory)
 
-Separation of concerns enforced throughout the codebase
+Fully separated concerns
 
-Reusable UI components (LoadingSpinner, ErrorMessage, StatusBadge, etc.)
+Reusable shared components:
+
+LoadingSpinner
+
+ErrorMessage
+
+StatusBadge
 
 🧱 Project Structure
-
-Your structure is clean and scalable. Here's the documented version for the README:
-
 src/
 │
-├── @types/               # Global TypeScript interfaces (Character, Episode, API types)
-├── api/                  # Axios API handler + service functions
+├── @types/                       # Global TypeScript definitions
+│
+├── api/                          # Axios clients + API functions
 │   ├── characters.ts
 │   ├── episodes.ts
 │   └── client.ts
 │
-├── components/           # UI components (each with its own logic & utils)
+├── components/                   # UI components (feature-scoped)
 │   ├── character-list/
-│   │     ├── components/
-│   │     ├── hook/
-│   │     └── utils/
-│   │     ├── index.tsx
+│   │   ├── components/
+│   │   ├── hook/
+│   │   └── utils/
+│   │   └── index.tsx
+│   │
 │   ├── character-details/
-|   |     ├── components/
-│   │     ├── hook/
-│   │     └── utils/
-│   │     ├── index.tsx
-│   ├── errorMessage.tsx
-│   ├── loadingSpinner.tsx
-│   └── header/
+│   │   ├── components/
+│   │   ├── hook/
+│   │   └── utils/
+│   │   └── index.tsx
+│   │
+│   ├── shared/
+│   │   ├── header.tsx
+│   │   ├── errorMessage.tsx
+│   │   └── loadingSpinner.tsx
 │
-├── hooks/                # Shared, generic hooks (e.g. useDebouncedValue)
+├── hooks/                        # Global shared hooks (debounce, etc.)
 │
-├── pages/                # Route-level pages
+├── pages/                        # Route-level pages
 │   ├── CharacterListPage.tsx
 │   ├── CharacterDetailsPage.tsx
 │   └── NotFoundPage.tsx
 │
-├── providers/            # React Query provider, theme provider, HOCs
+├── providers/                    # React Query client, HOCs
 │
-├── routes/               # Routing setup + withTitle HOC
-|
-├── App.tsx               # App entry with route mapping
-└── main.tsx              # Root bootstrap
+├── routes/                       # Router config + withTitle HOC
+│
+├── App.tsx                       # App entry
+└── main.tsx                      # Root bootstrap
 
 
-This organization follows feature-driven modular design, often used in scalable production React apps.
+This follows a feature-driven modular design, ideal for large-scale applications.
 
 🧠 Core Concepts Implemented
 ✔ TanStack Query
 
-Used for all server-side state:
+Character list fetching
 
-useQuery for fetching character list
+Character details → dependent episodes query
 
-Dependent queries: character → episodes
+Query keys:
 
-Proper query keys: ["characters"], ["character", id], ["episodes", ids]
+["characters"]
+
+["character", id]
+
+["episodes", ids]
 
 ✔ Debounced Search
-
-Custom hook: useDebouncedValue
-Prevents rapid firing of API requests.
+useDebouncedValue(value, 500);
 
 ✔ URL Param Handling
 
-Using useParams & useNavigate for navigation.
+useParams
 
-✔ Bulk Episode Fetching
+useNavigate
 
-Converts episode URLs → IDs:
+✔ Episode Extraction
+distructIds([".../1", ".../2"]) // → ["1", "2"]
 
-distructIds([".../1", ".../2"]); // → ["1", "2"]
-
-
-Then fetches them via:
-
+✔ Bulk Fetching
 GET /episode/1,2,3
 
-✔ Advanced UI/UX Components
+✔ UI/UX Enhancements
 
 Status badge color system
 
-Strong hover effects
+Strong hover animations
 
-Clean detail view
+Clean layout
 
-Robust error handling
+Elegant loading & error components
 
-🛠️ Installation & Setup
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/gsg-reactAdv-technical-task.git
+🛠 Installation & Setup
+# Clone repo
+git clone https://github.com/YOUR_USERNAME/GSG-Advanced-React-Task.git
 
-cd gsg-reactAdv-technical-task
+cd GSG-Advanced-React-Task
 
-# Install deps
+# Install dependencies
 npm install
 
-# Run dev server
+# Start development server
 npm run dev
 
 🔗 API Used
 
-All data is fetched from:
+All data comes from:
 
 👉 https://rickandmortyapi.com/documentation/
 
-Endpoints used:
+Endpoints implemented:
 
 /character
 
@@ -166,7 +175,7 @@ Endpoints used:
 
 /episode/:ids
 
-🧑‍💻 Author
+👨‍💻 Author
 
 Moamen Al-Yazouri
 Submitted for the GSG Advanced React Bootcamp Technical Task.
