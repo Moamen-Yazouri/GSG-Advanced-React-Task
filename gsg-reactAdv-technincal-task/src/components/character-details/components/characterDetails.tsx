@@ -66,7 +66,7 @@ const CharacterDetails = () => {
     <div className="space-y-6">
       <button
         onClick={handleBack}
-        className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-blue-900/50 rounded-lg text-blue-100 hover:border-blue-500/50 hover:bg-slate-800 transition-all"
+        className="cursor-pointer flex items-center gap-2 px-4 py-2 bg-slate-900 border border-blue-900/50 rounded-lg text-blue-100 hover:border-blue-500/50 hover:bg-slate-800 transition-all"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Characters
