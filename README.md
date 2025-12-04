@@ -1,70 +1,57 @@
-🚀 GSG Technical Task — Rick & Morty Explorer
+# 🚀 GSG Technical Task — Rick & Morty Explorer
 
-A clean, scalable React + TypeScript application built for the Gaza Sky Geeks Advanced React Bootcamp Technical Task.
+A clean, scalable React + TypeScript application built for the **Gaza Sky Geeks Advanced React Bootcamp Technical Task**.
 
-This project follows modern frontend architecture patterns, efficient API handling with TanStack Query, and a feature-based structure engineered for real-world scalability.
+This project follows modern frontend architecture patterns, efficient API handling with **TanStack Query**, and a feature-based structure engineered for real-world scalability.
 
-🎯 Features
-🔍 Characters Page
+## 🌐 Live Demo
 
-Paginated list of Rick & Morty characters
+**🔗 [View Live Application](https://gsg-rick-motry-app.vercel.app/)**
 
-Debounced search (prevents API spam)
+---
 
-Responsive card grid
+## 🎯 Features
 
-Click any character to view full details
+### 🔍 Characters Page
+- Paginated list of Rick & Morty characters
+- Debounced search (prevents API spam)
+- Responsive card grid
+- Click any character to view full details
 
-🧪 Character Details
+### 🧪 Character Details
+- Character image + full information
+- Dynamic status badge (Alive / Dead / Unknown)
+- Extracts episode IDs from URLs
+- Bulk episode fetching via `/episode/:ids`
+- Clean loading & error handling
 
-Character image + full information
+---
 
-Dynamic status badge (Alive / Dead / Unknown)
-
-Extracts episode IDs from URLs
-
-Bulk episode fetching via /episode/:ids
-
-Clean loading & error handling
-
-⚛️ Modern Architecture & Patterns Used
+## ⚛️ Modern Architecture & Patterns Used
 
 This project demonstrates:
 
-Feature-based modular architecture
+- **Feature-based modular architecture**
+- **Custom hooks per feature** (`useCharacters`, `useSearch`, `useCharDetails`, `useEpisodes`)
+- Co-located utils/hooks per component
+- **Centralized API layer** using Axios
+- **TanStack Query** for:
+  - Caching
+  - Background fetching
+  - Server state management
+  - Loading & error states
+- **HOC pattern** (`withTitle`) for injecting metadata into routes
+- Strong **TypeScript** usage (`@types` directory)
+- Fully separated concerns
+- **Reusable shared components**:
+  - `LoadingSpinner`
+  - `ErrorMessage`
+  - `StatusBadge`
 
-Custom hooks per feature
-(useCharacters, useSearch, useCharDetails, useEpisodes)
+---
 
-Co-located utils/hooks per component
-
-Centralized API layer using Axios
-
-TanStack Query for:
-
-Caching
-
-Background fetching
-
-Server state management
-
-Loading & error states
-
-HOC pattern (withTitle) for injecting metadata into routes
-
-Strong TypeScript usage (@types directory)
-
-Fully separated concerns
-
-Reusable shared components:
-
-LoadingSpinner
-
-ErrorMessage
-
-StatusBadge
-
-🧱 Project Structure
+## 🧱 Project Structure
+```
 src/
 │
 ├── @types/                       # Global TypeScript definitions
@@ -78,19 +65,19 @@ src/
 │   ├── character-list/
 │   │   ├── components/
 │   │   ├── hook/
-│   │   └── utils/
+│   │   ├── utils/
 │   │   └── index.tsx
 │   │
 │   ├── character-details/
 │   │   ├── components/
 │   │   ├── hook/
-│   │   └── utils/
+│   │   ├── utils/
 │   │   └── index.tsx
 │   │
-│   ├── shared/
-│   │   ├── header.tsx
-│   │   ├── errorMessage.tsx
-│   │   └── loadingSpinner.tsx
+│   └── shared/
+│       ├── header.tsx
+│       ├── errorMessage.tsx
+│       └── loadingSpinner.tsx
 │
 ├── hooks/                        # Global shared hooks (debounce, etc.)
 │
@@ -105,53 +92,53 @@ src/
 │
 ├── App.tsx                       # App entry
 └── main.tsx                      # Root bootstrap
+```
 
+This follows a **feature-driven modular design**, ideal for large-scale applications.
 
-This follows a feature-driven modular design, ideal for large-scale applications.
+---
 
-🧠 Core Concepts Implemented
-✔ TanStack Query
+## 🧠 Core Concepts Implemented
 
-Character list fetching
+### ✔ TanStack Query
+- Character list fetching
+- Character details → dependent episodes query
+- Query keys:
+  - `["characters"]`
+  - `["character", id]`
+  - `["episodes", ids]`
 
-Character details → dependent episodes query
-
-Query keys:
-
-["characters"]
-
-["character", id]
-
-["episodes", ids]
-
-✔ Debounced Search
+### ✔ Debounced Search
+```typescript
 useDebouncedValue(value, 500);
+```
 
-✔ URL Param Handling
+### ✔ URL Param Handling
+- `useParams`
+- `useNavigate`
 
-useParams
-
-useNavigate
-
-✔ Episode Extraction
+### ✔ Episode Extraction
+```typescript
 distructIds([".../1", ".../2"]) // → ["1", "2"]
+```
 
-✔ Bulk Fetching
+### ✔ Bulk Fetching
+```
 GET /episode/1,2,3
+```
 
-✔ UI/UX Enhancements
+### ✔ UI/UX Enhancements
+- Status badge color system
+- Strong hover animations
+- Clean layout
+- Elegant loading & error components
 
-Status badge color system
+---
 
-Strong hover animations
-
-Clean layout
-
-Elegant loading & error components
-
-🛠 Installation & Setup
+## 🛠 Installation & Setup
+```bash
 # Clone repo
-git clone https://github.com/YOUR_USERNAME/GSG-Advanced-React-Task.git
+git clone https://github.com/Moamen-Yazouri/GSG-Advanced-React-Task.git
 
 cd GSG-Advanced-React-Task
 
@@ -160,22 +147,45 @@ npm install
 
 # Start development server
 npm run dev
+```
 
-🔗 API Used
+---
 
-All data comes from:
+## 🔗 API Used
 
-👉 https://rickandmortyapi.com/documentation/
+All data comes from:  
+👉 **https://rickandmortyapi.com/documentation/**
 
-Endpoints implemented:
+**Endpoints implemented:**
+- `/character`
+- `/character/:id`
+- `/episode/:ids`
 
-/character
+---
 
-/character/:id
+## 🚀 Deployment
 
-/episode/:ids
+This project is deployed on **Vercel** with automatic deployments from the `main` branch.
 
-👨‍💻 Author
+**Live URL:** https://gsg-rick-motry-app.vercel.app/
 
-Moamen Al-Yazouri
-Submitted for the GSG Advanced React Bootcamp Technical Task.
+---
+
+## 👨‍💻 Author
+
+**Moamen Al-Yazouri**  
+Submitted for the **GSG Advanced React Bootcamp Technical Task**.
+
+---
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+## 🙏 Acknowledgments
+
+- Gaza Sky Geeks for the bootcamp opportunity
+- Rick and Morty API for the data
+
