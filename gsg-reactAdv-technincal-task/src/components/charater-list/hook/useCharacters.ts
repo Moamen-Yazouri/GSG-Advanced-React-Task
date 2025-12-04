@@ -6,5 +6,7 @@ export function useCharacters() {
   return useQuery<TCharacter[], Error>({
     queryKey: ["characters"],
     queryFn: getAllCharacters,
+    staleTime: 5 * 60 * 1000, 
+    gcTime: 10 * 60 * 1000, 
   });
 }

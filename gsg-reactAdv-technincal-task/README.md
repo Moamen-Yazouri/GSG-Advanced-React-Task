@@ -1,75 +1,92 @@
-# React + TypeScript + Vite
+# Rick & Morty Characters App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript application built as part of the **Gaza Sky Geeks – Advanced React Bootcamp** technical task.
 
-Currently, two official plugins are available:
+The app uses the **Rick and Morty API** to display characters, support searching, and show detailed character details including the episodes they appear in.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- **Characters List**
+  - Fetches characters from the Rick & Morty API
+  - Responsive grid of character cards
+- **Search**
+  - Debounced search by character name
+  - Clean UX without extra API spam
+- **Character Details**
+  - Character image, status, species, gender, origin, location
+  - List of episodes (fetched in bulk using their IDs)
+- **Error & Loading States**
+  - Global loading spinner and error messages
+  - 404 / Not Found page
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 18 + TypeScript
+- Vite
+- React Router
+- TanStack Query (React Query)
+- Axios
+- Tailwind CSS
+- Lucide React Icons
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```txt
+src/
+  @types/         # Shared TypeScript types (Character, Episode, API responses, etc.)
+  api/            # Axios API clients and HTTP helpers
+  assets/         # Static assets (images, logos, etc.)
+  components/     # UI components (each component may have its own hooks/utils/types/..etc)
+    character-list/
+    character-details/
+    ...
+  hooks/          # Reusable generic hooks (e.g. useDebouncedValue)
+  pages/          # Route-level pages (CharacterListPage, CharacterDetailsPage, NotFoundPage)
+  providers/      # App-level providers (e.g. React Query client, Router HOCs, etc.)
+  routes/         # Route configuration and route HOCs (withTitle, etc.)
+  service/        # Domain/service layer (business logic between api and UI)
+  App.tsx
+  main.tsx
+Each major UI piece (like character list, character details) lives in its own folder under components/, and can contain its own:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+hook/ – component-specific hooks
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+utils/ – small helpers related to that component
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+index.tsx / main JSX
+
+This keeps logic co-located and makes the app easier to scale.
+
+▶️ Getting Started
+bash
+Copy code
+# Clone the repo
+git clone https://github.com/YOUR_USERNAME/gsg-reactAdv-technical-task.git
+
+cd gsg-reactAdv-technical-task
+
+# Install dependencies
+npm install
+
+# Run the dev server
+npm run dev
+Then open the URL printed in the terminal (usually http://localhost:5173/).
+
+🔗 API
+Data is fetched from the public Rick & Morty API:
+
+https://rickandmortyapi.com/api/character
+
+https://rickandmortyapi.com/api/character/:id
+
+https://rickandmortyapi.com/api/episode/:ids
+
+👨‍💻 Author
+Built by Moamen Al-Yazouri
+Submitted for the GSG Advanced React Bootcamp – Technical Task.
