@@ -1,12 +1,12 @@
 import { useList } from "../hook/useList";
 import { SearchBar } from "./searchBar";
-import { LoadingSpinner } from "../../loadingSpinner";
-import { ErrorMessage } from "../../errorMessage";
+import { LoadingSpinner } from "../../shared/loadingSpinner";
+import { ErrorMessage } from "../../shared/errorMessage";
 import { CharactersList } from "./characterList";
 
 
 
-const CharactersPage = () => {
+const Characters = () => {
   const {
     search,
     setSearch,
@@ -50,4 +50,4 @@ const CharactersPage = () => {
   );
 };
 
-export default CharactersPage;
+export default Characters;

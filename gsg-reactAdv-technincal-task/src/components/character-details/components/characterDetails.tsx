@@ -1,42 +1,37 @@
-
 import { ArrowLeft } from "lucide-react";
+import { useMemo } from "react";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import useCharDetails from "../hook/useCharDetails";
 import { distructIds } from "../utils/distructId";
-import { useMemo } from "react";
-import useEpisodes from "../hook/useEpisodes";
-import { ErrorMessage } from "../../errorMessage";
-import { LoadingSpinner } from "../../loadingSpinner";
+import { ErrorMessage } from "../../shared/errorMessage";
+import { LoadingSpinner } from "../../shared/loadingSpinner";
 import { CharacterInfo } from "./characterInfo";
 import { EpisodesList } from "./episodesList";
 
-interface CharacterDetailsPageProps {
-  characterId: string;
-  onBack: () => void;
-}
+const CharacterDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
-const CharacterDetailsPage = ({ characterId, onBack }: CharacterDetailsPageProps) => {
-  const { 
-        data: character, 
-        isLoading: isLoadingCharacter, 
-        isError: isErrorCharacter, 
-        error: characterError
-    } = useCharDetails(characterId);
+  const {
+    data: character,
+    isLoading: isLoadingCharacter,
+    isError: isErrorCharacter,
+    error: characterError,
+  } = useCharDetails(id || "");
+
+  const ids = useMemo(() => {
+    if (character?.episode) {
+      return distructIds(character.episode);
+    }
+    return [];
+  }, [character]);
 
 
-    const ids = useMemo(() => {
-        if(character?.episode) {
-            return distructIds(character.episode)
-        }
-        else{
-            return [];
-        }
-    }, [character]);
-        
-    const { 
-        data: episodes, 
-        isLoading: isLoadingEpisodes, 
-        isError: isErrorEpisodes 
-    } = useEpisodes(ids);
+
+  const handleBack = () => {
+  
+    navigate("/");
+  };
 
   if (isLoadingCharacter) {
     return <LoadingSpinner />;
@@ -45,8 +40,8 @@ const CharacterDetailsPage = ({ characterId, onBack }: CharacterDetailsPageProps
   if (isErrorCharacter) {
     return (
       <div className="space-y-4">
-        <button 
-          onClick={onBack}
+        <button
+          onClick={handleBack}
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-blue-900/50 rounded-lg text-blue-100 hover:border-blue-500/50 hover:bg-slate-800 transition-all"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -54,20 +49,23 @@ const CharacterDetailsPage = ({ characterId, onBack }: CharacterDetailsPageProps
         </button>
         <ErrorMessage
           title="Failed to load character"
-          message={characterError?.message || "An error occurred while fetching character details"}
+          message={
+            characterError?.message ||
+            "An error occurred while fetching character details"
+          }
         />
       </div>
     );
   }
 
-  if (!character) {
-    return null;
+  if (!id || !character) {
+    return <Navigate to="*" replace />;
   }
 
   return (
     <div className="space-y-6">
-      <button 
-        onClick={onBack}
+      <button
+        onClick={handleBack}
         className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-blue-900/50 rounded-lg text-blue-100 hover:border-blue-500/50 hover:bg-slate-800 transition-all"
       >
         <ArrowLeft className="w-4 h-4" />
@@ -76,24 +74,11 @@ const CharacterDetailsPage = ({ characterId, onBack }: CharacterDetailsPageProps
 
       <CharacterInfo character={character} />
 
-      {isLoadingEpisodes && (
-        <div className="py-8">
-          <LoadingSpinner />
-        </div>
-      )}
 
-      {isErrorEpisodes && (
-        <ErrorMessage
-          title="Failed to load episodes"
-          message="An error occurred while fetching episode information"
-        />
-      )}
 
-      {episodes && episodes.length > 0 && (
-        <EpisodesList episodes={episodes} />
-      )}
+      <EpisodesList ids={ids}/>
     </div>
   );
 };
 
-export default CharacterDetailsPage;
+export default CharacterDetails;

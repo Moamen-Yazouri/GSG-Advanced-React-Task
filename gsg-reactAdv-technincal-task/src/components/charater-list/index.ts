@@ -1,1 +1,1 @@
-export { default } from './components/charactersPage'
+export { default } from './components/characters'

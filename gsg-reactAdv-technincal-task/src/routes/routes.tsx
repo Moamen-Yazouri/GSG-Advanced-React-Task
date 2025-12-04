@@ -1,22 +1,25 @@
 import type { RouteObject } from "react-router-dom";
-import CharactersPage from "../components/charater-list";
+import { NotFoundPage } from "../components/shared/notFound";
+import CharacterListPageWithTitle from "../pages/characterListPage";
+import CharacterDetailsPageWithTitle from "../pages/characterDetailsPage";
 
 
 
-export const publicRoutes: RouteObject = {
+
+export const routes: RouteObject = {
     path: "",
       children: [
     {
       index: true,
-      element: <CharactersPage />,
+      element: <CharacterListPageWithTitle />,
     },
-    // {
-    //   path: "characters/:id",
-    //   element: <CharacterDetailsPage />,
-    // },
-    // {
-    //   path: "*",
-    //   element: <NotFoundPage />
-    // },
+    {
+      path: "characters/:id",
+      element: <CharacterDetailsPageWithTitle />,
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />
+    },
   ],
 }
